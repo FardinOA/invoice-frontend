@@ -1,13 +1,10 @@
-import { Button } from "antd";
-
 const Home = () => {
   return (
     <div>
-      <Button type="primary">Primary Button</Button>
-      <Button>Default Button</Button>
-      <Button type="dashed">Dashed Button</Button>
-      <Button type="text">Text Button</Button>
-      <Button type="link">Link Button</Button>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+      voluptatum voluptas ea. Corporis sequi voluptatibus illum maiores
+      doloribus perferendis sapiente, expedita in sit veniam sint harum dolores
+      hic excepturi ipsa.
     </div>
   );
 };
