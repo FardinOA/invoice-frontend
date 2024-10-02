@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PieChartOutlined } from "@ant-design/icons";
 import { COLOR } from "../../constants/theme";
+import { PATH_DASHBOARD, PATH_INVOICE } from "../../constants/routes";
+import { Logo } from "../../components";
 
 const { Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
@@ -24,10 +26,24 @@ const getItem = (
 };
 
 const items: MenuProps["items"] = [
-  getItem(<Link to={"/"}>Dashboard</Link>, "Dashboard", <PieChartOutlined />),
+  getItem(
+    <Link to={PATH_DASHBOARD.root}>Dashboard</Link>,
+    "Dashboard",
+    <PieChartOutlined />
+  ),
+  getItem("Manage Invoice", "manage_invoice", <PieChartOutlined />, [
+    getItem(<Link to={PATH_INVOICE.root}>Invoice</Link>, "invoice", null),
+    getItem(
+      <Link to={PATH_INVOICE.templates}>Templates</Link>,
+      "templates",
+      null
+    ),
+  ]),
 ];
 
 type SideNavProps = SiderProps;
+
+const rootSubmenuKeys = ["dashboard", "manage_invoice"];
 const SideNav = ({ ...rest }: SideNavProps) => {
   const nodeRef = useRef(null);
   const { pathname } = useLocation();
@@ -41,7 +57,7 @@ const SideNav = ({ ...rest }: SideNavProps) => {
 
   const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (latestOpenKey) {
+    if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
       setOpenKeys(keys);
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
@@ -54,15 +70,30 @@ const SideNav = ({ ...rest }: SideNavProps) => {
     setCurrent(paths[paths.length - 1]);
   }, [pathname]);
   return (
-    <Sider ref={nodeRef} breakpoint="lg" collapsedWidth="0" {...rest}>
+    <Sider
+      ref={nodeRef}
+      breakpoint="lg"
+      collapsedWidth="0"
+      width={230}
+      {...rest}
+    >
+      <Logo
+        color="blue"
+        asLink
+        href={PATH_DASHBOARD.root}
+        justify="center"
+        gap="small"
+        imgSize={{ h: 28, w: 28 }}
+        style={{ padding: "1rem 0" }}
+      />
       <ConfigProvider
         theme={{
           components: {
             Menu: {
               itemBg: "none",
-              itemSelectedBg: COLOR["primary"],
+              itemSelectedBg: "none",
               itemHoverBg: COLOR["secondary"],
-              itemSelectedColor: COLOR["primaryForeground"],
+              itemSelectedColor: COLOR["primary"],
             },
           },
         }}

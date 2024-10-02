@@ -1,3 +1,3 @@
 import RootLayout from "./Root";
-
-export { RootLayout };
+import InvoiceLayout from "./Invoice";
+export { RootLayout, InvoiceLayout };

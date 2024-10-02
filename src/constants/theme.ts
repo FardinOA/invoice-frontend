@@ -1,8 +1,19 @@
 export const COLOR = {
-  text: "#140223",
-  background: "#f9f9fe",
-  primary: "#9025f0",
+  text: "#060515",
+  background: "#f2f0fb",
+  primary: "#5542cf",
   primaryForeground: "#fff",
-  secondary: "#f6a481",
-  accent: "#f3e64d",
+  secondary: "#e1d48a",
+  accent: "#75d65f",
+  sidebar: "#fff",
+};
+
+export const DARK_COLOR = {
+  text: "#E0E0E3",
+  background: "#1D1D27",
+  primary: "#BB86FC",
+  primaryForeground: "#fff",
+  secondary: "#03DAC6",
+  accent: "#CF6679",
+  sidebar: "#2E2E3A",
 };

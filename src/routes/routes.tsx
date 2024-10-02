@@ -1,7 +1,8 @@
 import { createBrowserRouter, useLocation } from "react-router-dom";
 import React, { ReactNode, useEffect } from "react";
-import { HomePage, SignInPage } from "../pages";
+import { HomePage, InvoiceHome, SignInPage, Templates } from "../pages";
 import Dashboard from "../layout/dashboard";
+import { InvoiceLayout } from "../layout";
 
 // Custom scroll restoration function
 export const ScrollToTop: React.FC = () => {
@@ -43,6 +44,22 @@ const router = createBrowserRouter([
         index: true,
         path: "/",
         element: <HomePage />,
+      },
+    ],
+  },
+  {
+    path: "/invoice",
+    element: <PageWrapper children={<InvoiceLayout />} />, // Invoice HOme page
+    errorElement: <div>Page Not Found</div>,
+    children: [
+      {
+        index: true,
+        path: "/invoice",
+        element: <InvoiceHome />,
+      },
+      {
+        path: "templates",
+        element: <Templates />,
       },
     ],
   },
