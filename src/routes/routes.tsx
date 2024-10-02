@@ -1,6 +1,7 @@
 import { createBrowserRouter, useLocation } from "react-router-dom";
 import React, { ReactNode, useEffect } from "react";
 import { HomePage, SignInPage } from "../pages";
+import Dashboard from "../layout/dashboard";
 
 // Custom scroll restoration function
 export const ScrollToTop: React.FC = () => {
@@ -35,8 +36,15 @@ const PageWrapper = ({ children }: PageProps) => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PageWrapper children={<HomePage />} />, // Home Page
+    element: <PageWrapper children={<Dashboard />} />, // Home Page
     errorElement: <div>Page Not Found</div>,
+    children: [
+      {
+        index: true,
+        path: "/",
+        element: <HomePage />,
+      },
+    ],
   },
   {
     path: "/signin",
