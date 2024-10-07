@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Col, DatePicker, InputNumber } from "antd";
+import { Form, Input, Button, Row, Col, InputNumber } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,7 +10,7 @@ const CreateInvoice = () => {
   const [amountPaid, setAmountPaid] = useState(0);
   const [title, setTitle] = useState("INVOICE");
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
