@@ -38,6 +38,11 @@ const items: MenuProps["items"] = [
       "templates",
       null
     ),
+    getItem(
+      <Link to={PATH_INVOICE.create_invoice}>Create Invoice</Link>,
+      "create-invoice",
+      null
+    ),
   ]),
 ];
 

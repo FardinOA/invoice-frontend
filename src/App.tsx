@@ -4,8 +4,9 @@ import { COLOR, DARK_COLOR } from "./constants/theme";
 import { StylesContext } from "./context";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { RouterProvider } from "react-router-dom";
-import routes from "./routes/routes";
+
+import { AuthProvider } from "./providers";
+import Routes from "./routes/routes";
 function App() {
   const { mytheme } = useSelector((state: RootState) => state.theme);
   const currentColors = mytheme === "dark" ? DARK_COLOR : COLOR;
@@ -36,7 +37,9 @@ function App() {
           },
         }}
       >
-        <RouterProvider router={routes} />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </StylesContext.Provider>
     </ConfigProvider>
   );

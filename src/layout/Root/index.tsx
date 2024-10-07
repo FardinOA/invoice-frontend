@@ -24,38 +24,23 @@ import {
 import { toggleTheme } from "../../redux/features/theme/themeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { ScrollToTop } from "../../components";
+import { api } from "../../axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../providers";
+import { AxiosError } from "axios";
+import { getErrorMessage } from "../../utils";
+
 const { Content } = Layout;
 
-const items: MenuProps["items"] = [
-  {
-    key: "user-profile-link",
-    label: "profile",
-    icon: <UserOutlined />,
-  },
-
-  {
-    type: "divider",
-  },
-  {
-    key: "user-logout-link",
-    label: "logout",
-    icon: <LogoutOutlined />,
-    danger: true,
-    onClick: () => {
-      message.open({
-        type: "loading",
-        content: "signing you out",
-      });
-    },
-  },
-];
 const RootLayout = ({ children }: { children: ReactNode }) => {
   const {
     token: { borderRadius },
   } = theme.useToken();
   const [collapsed, setCollapsed] = useState(true);
   const [navFill, setNavFill] = useState(false);
-
+  const { setToken } = useAuth();
+  const navigate = useNavigate();
   const { mytheme } = useSelector((state: RootState) => state.theme);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -68,6 +53,61 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     });
   }, []);
   const currentColors = mytheme === "dark" ? DARK_COLOR : COLOR;
+
+  const logoutHandler = async () => {
+    message.open({
+      key: "logoutToast",
+      type: "loading",
+      content: "Action in progress...",
+      duration: 0,
+    });
+
+    try {
+      // Perform the API call
+      const { data } = await api.get(`users/logout`);
+
+      // After successful response, show success message
+      message.open({
+        key: "logoutToast",
+        type: "success",
+        content: "Logout successful!",
+        duration: 2,
+      });
+
+      console.log(data);
+      if (data?.success) {
+        setToken(null);
+        navigate("/login", { replace: true });
+      }
+    } catch (error: unknown) {
+      const apiError = error as AxiosError;
+      message.open({
+        key: "logoutToast",
+        type: "error",
+        content: getErrorMessage(apiError),
+        duration: 2,
+      });
+    }
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "user-profile-link",
+      label: "profile",
+      icon: <UserOutlined />,
+    },
+
+    {
+      type: "divider",
+    },
+    {
+      key: "user-logout-link",
+      label: "logout",
+      icon: <LogoutOutlined />,
+      danger: true,
+      onClick: logoutHandler,
+    },
+  ];
   return (
     <Layout
       style={{
@@ -149,9 +189,10 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           style={{
             borderRadius: collapsed ? 0 : borderRadius,
             transition: "all .25s",
-            padding: "24px 32px",
           }}
+          className="layout-content"
         >
+          <ScrollToTop />
           {children}
         </Content>
       </Layout>

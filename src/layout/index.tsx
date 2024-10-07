@@ -1,3 +1,4 @@
 import RootLayout from "./Root";
 import InvoiceLayout from "./Invoice";
-export { RootLayout, InvoiceLayout };
+import Dashboard from "./dashboard";
+export { RootLayout, InvoiceLayout, Dashboard };

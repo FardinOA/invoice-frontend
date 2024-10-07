@@ -11,4 +11,5 @@ export const PATH_DASHBOARD = {
 export const PATH_INVOICE = {
   root: ROOT_INVOICE,
   templates: path(ROOT_INVOICE, "/templates"),
+  create_invoice: path(ROOT_INVOICE, "/create-invoice"),
 };
