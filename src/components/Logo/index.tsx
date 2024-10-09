@@ -19,7 +19,7 @@ export const Logo = ({
   asLink,
   color,
   href,
-  imgSize,
+
   bgColor,
   ...others
 }: LogoProps) => {
@@ -30,7 +30,7 @@ export const Logo = ({
   return asLink ? (
     <Link to={href || "#"} className="logo-link">
       <Flex gap={others.gap || "small"} align="center" {...others}>
-        <img src="/ig.png" alt="design sparx logo" height={imgSize?.h || 48} />
+        <img src="/ig.png" alt="design sparx logo" className="size-[48px]" />
         <Typography.Title
           level={5}
           type="secondary"
@@ -48,7 +48,7 @@ export const Logo = ({
     </Link>
   ) : (
     <Flex gap={others.gap || "small"} align="center" {...others}>
-      <img src="/ig.png" alt="design sparx logo" height={imgSize?.h || 48} />
+      <img src="/ig.png" alt="design sparx logo" className="size-[48px]" />
       <Typography.Title
         level={4}
         type="secondary"

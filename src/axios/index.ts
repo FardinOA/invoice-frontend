@@ -4,8 +4,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 1000,
-  headers: { Accept: "application/json" },
+  headers: { Accept: "application/json", "Content-Type": "application/json" },
 });
 api.interceptors.request.use(
   function (config) {
@@ -33,7 +32,7 @@ api.interceptors.response.use(
   function (error) {
     // if unauthorized then remove the token
 
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       localStorage.removeItem("invoice_token");
       //reload the window
       window.location.reload();

@@ -21,6 +21,7 @@ function App() {
           borderRadius: 6,
           fontFamily: "Lato, sans-serif",
         },
+
         algorithm:
           mytheme === "dark"
             ? antdTheme.darkAlgorithm

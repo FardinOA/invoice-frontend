@@ -88,7 +88,6 @@ const SideNav = ({ ...rest }: SideNavProps) => {
         href={PATH_DASHBOARD.root}
         justify="center"
         gap="small"
-        imgSize={{ h: 28, w: 28 }}
         style={{ padding: "1rem 0" }}
       />
       <ConfigProvider

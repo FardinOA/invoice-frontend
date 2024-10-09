@@ -61,6 +61,8 @@ const SignInPage: React.FC = () => {
       }
     } catch (error: unknown) {
       const apiError = error as AxiosError;
+
+      console.log("apiError", apiError);
       messageApi.open({
         key: "loginToast",
         type: "error",

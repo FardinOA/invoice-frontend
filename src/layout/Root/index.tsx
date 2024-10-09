@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Dropdown,
   Flex,
@@ -95,6 +96,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       key: "user-profile-link",
       label: "profile",
       icon: <UserOutlined />,
+      onClick: () => {
+        message.info("This features is coming soon");
+      },
     },
 
     {
@@ -165,7 +169,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           <Flex align="center" gap="small">
             <Tooltip title="Theme">
               <Switch
-                className=" hidden sm:inline py-1"
+                className="    "
                 checkedChildren={<MoonOutlined />}
                 unCheckedChildren={<SunOutlined />}
                 checked={mytheme === "light" ? true : false}
@@ -174,12 +178,10 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
             </Tooltip>
             <Dropdown menu={{ items }} trigger={["click"]}>
               <Flex>
-                <img
-                  src="/profile.webp"
-                  alt="user profile photo"
-                  height={36}
-                  width={36}
-                  style={{ borderRadius, objectFit: "cover" }}
+                <Avatar
+                  className="cursor-pointer"
+                  size={36}
+                  icon={<UserOutlined />}
                 />
               </Flex>
             </Dropdown>
@@ -189,10 +191,13 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           style={{
             borderRadius: collapsed ? 0 : borderRadius,
             transition: "all .25s",
+            padding: 0,
+            marginTop: 16,
           }}
           className="layout-content"
         >
           <ScrollToTop />
+
           {children}
         </Content>
       </Layout>

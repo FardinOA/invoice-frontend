@@ -4,7 +4,7 @@ export const COLOR = {
   primary: "#5542cf",
   primaryForeground: "#fff",
   secondary: "#e1d48a",
-  accent: "#75d65f",
+  accent: "#CF6679",
   sidebar: "#fff",
 };
 

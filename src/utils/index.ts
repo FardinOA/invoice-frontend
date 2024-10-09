@@ -11,6 +11,7 @@ interface ErrorResponse {
 }
 
 export const getErrorMessage = (error: AxiosError): string => {
+  console.log(error);
   if (error.response) {
     const { data } = error.response as { data: ErrorResponse };
     return data.message || "An unexpected error occurred.";

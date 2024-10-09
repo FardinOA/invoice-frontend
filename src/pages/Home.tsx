@@ -1,10 +1,19 @@
+import useTheme from "../hooks/useTheme";
+import ComingSoon from "../components/utils/ComingSoon";
+
 const Home = () => {
+  const { currentColors } = useTheme();
+
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-      voluptatum voluptas ea. Corporis sequi voluptatibus illum maiores
-      doloribus perferendis sapiente, expedita in sit veniam sint harum dolores
-      hic excepturi ipsa.
+    <div
+      style={{
+        background: currentColors.sidebar,
+        borderRadius: "5px",
+        padding: 16,
+        height: "100%",
+      }}
+    >
+      <ComingSoon />
     </div>
   );
 };
