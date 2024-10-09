@@ -1,5 +1,36 @@
-* {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+.layout-content {
+  padding: 24px 0;
+}
+.invoice-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.logo-placeholder {
+  width: 100%;
+  height: 120px;
+  border: 1px dashed #ccc;
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 120px;
+  font-size: 16px;
+  color: #999;
+}
+
+.invoice-header {
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .invoice-header {
+    text-align: left;
+  }
+}
+
+@media (min-width: 1080px) {
+  .layout-content {
+    padding: 24px 32px;
+  }
 }

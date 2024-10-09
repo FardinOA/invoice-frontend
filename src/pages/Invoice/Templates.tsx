@@ -1,9 +1,8 @@
-import useTheme from "../hooks/useTheme";
-import ComingSoon from "../components/utils/ComingSoon";
+import ComingSoon from "../../components/utils/ComingSoon";
+import useTheme from "../../hooks/useTheme";
 
-const Home = () => {
+const Templates = () => {
   const { currentColors } = useTheme();
-
   return (
     <div
       style={{
@@ -18,4 +17,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Templates;

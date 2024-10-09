@@ -1,47 +1,94 @@
-import { createBrowserRouter, useLocation } from "react-router-dom";
-import React, { ReactNode, useEffect } from "react";
-import { HomePage, SignInPage } from "../pages";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// Custom scroll restoration function
-export const ScrollToTop: React.FC = () => {
-  const { pathname } = useLocation();
+import {
+  CreateInvoice,
+  HomePage,
+  InvoiceHome,
+  SignInPage,
+  Templates,
+} from "../pages";
+import Dashboard from "../layout/dashboard";
+import { InvoiceLayout } from "../layout";
+import { useAuth } from "../providers";
+import { ProtectedRoute } from "./ProtectedRoute";
+import { ErrorPage } from "../components";
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    }); // Scroll to the top when the location changes
-  }, [pathname]);
+const Routes = () => {
+  const { token } = useAuth(); // Get token from the auth context
 
-  return null; // This component doesn't render anything
+  // Public routes, accessible by all users
+  const routesForPublic = [
+    {
+      path: "/login",
+      element: <SignInPage />,
+      errorElement: <ErrorPage />,
+    },
+  ];
+
+  // Routes for authenticated users only, wrapped with ProtectedRoute
+  const routesForAuthenticatedOnly = [
+    {
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/",
+          element: <Dashboard />,
+          children: [
+            {
+              index: true,
+              path: "/",
+              element: <HomePage />,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/invoice",
+          element: <InvoiceLayout />,
+          children: [
+            {
+              index: true,
+              path: "/invoice",
+              element: <InvoiceHome />,
+            },
+            {
+              path: "create-invoice",
+              element: <CreateInvoice />,
+            },
+            {
+              path: "templates",
+              element: <Templates />,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
+  // Routes for non-authenticated users only
+  const routesForNotAuthenticatedOnly = [
+    {
+      path: "/signin",
+      element: <SignInPage />,
+      errorElement: <ErrorPage />,
+    },
+  ];
+
+  // Combine routes conditionally based on authentication
+  const router = createBrowserRouter([
+    ...routesForPublic,
+    ...(!token ? routesForNotAuthenticatedOnly : []),
+    ...routesForAuthenticatedOnly.map((route) => ({
+      ...route,
+      element: <ProtectedRoute />,
+    })),
+  ]);
+
+  return <RouterProvider router={router} />;
 };
 
-type PageProps = {
-  children: ReactNode;
-};
-
-// Create an HOC to wrap your route components with ScrollToTop
-const PageWrapper = ({ children }: PageProps) => {
-  return (
-    <>
-      <ScrollToTop />
-      {children}
-    </>
-  );
-};
-
-// Create the router
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PageWrapper children={<HomePage />} />, // Home Page
-    errorElement: <div>Page Not Found</div>,
-  },
-  {
-    path: "/signin",
-    element: <PageWrapper children={<SignInPage />} />, // Sign In Page
-  },
-]);
-
-export default router;
+export default Routes;
