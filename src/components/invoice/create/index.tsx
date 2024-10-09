@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Form, Input, Button, DatePicker, Row, Col, Upload } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { getBase64 } from "../../../lib/image";
